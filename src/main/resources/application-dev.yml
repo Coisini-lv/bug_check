@@ -1,0 +1,18 @@
+bugCheck:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: bug_check
+    username: root
+    password: 123456
+#  alioss:
+#    endpoint: oss-cn-beijing.aliyuncs.com
+#    access-key-id: LTAI5tFFuoi4rmEX7V1UDakN
+#    access-key-secret: ngs6j91fjV15mCneVcXkgxDIrBFmxO
+#    bucket-name: lsh-test-list
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 0
