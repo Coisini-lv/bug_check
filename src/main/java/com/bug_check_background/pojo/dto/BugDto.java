@@ -3,11 +3,13 @@ package com.bug_check_background.pojo.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 
 @Builder
 @Data
+@Validated
 public class BugDto {
 
     @ApiModelProperty(value = "页码")
