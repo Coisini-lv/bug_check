@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   datasource:
@@ -12,7 +12,9 @@ spring:
     port: ${bugCheck.redis.port}
     password: ${bugCheck.redis.password}
     database: ${bugCheck.redis.database}
-
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
 mybatis:
   #mapper配置文件
   mapper-locations: classpath:mapper/*.xml
