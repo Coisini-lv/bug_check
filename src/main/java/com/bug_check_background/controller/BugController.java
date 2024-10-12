@@ -1,7 +1,6 @@
 package com.bug_check_background.controller;
 
 import com.bug_check_background.pojo.dto.BugDto;
-import com.bug_check_background.pojo.entity.BugInfo;
 import com.bug_check_background.pojo.result.PageResult;
 import com.bug_check_background.pojo.result.Result;
 import com.bug_check_background.service.BugService;
@@ -12,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @Slf4j
 @RequestMapping("/bug")
 @Api(tags = "Bug管理")
+@Validated
 public class BugController {
     @Autowired
     BugService bugService;
