@@ -1,12 +1,9 @@
 package com.bug_check_background.service;
 
 import com.bug_check_background.pojo.dto.BugDto;
-import com.bug_check_background.pojo.entity.BugInfo;
 import com.bug_check_background.pojo.entity.Num;
-import com.bug_check_background.pojo.result.PageResult;
+import com.bug_check_background.common.result.PageResult;
 import com.bug_check_background.pojo.vo.ConditionVo;
-
-import java.util.List;
 
 public interface BugService {
 

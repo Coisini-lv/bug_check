@@ -1,10 +1,9 @@
 package com.bug_check_background.controller;
 
 import com.bug_check_background.pojo.dto.BugDto;
-import com.bug_check_background.pojo.entity.BugInfo;
 import com.bug_check_background.pojo.entity.Num;
-import com.bug_check_background.pojo.result.PageResult;
-import com.bug_check_background.pojo.result.Result;
+import com.bug_check_background.common.result.PageResult;
+import com.bug_check_background.common.result.Result;
 import com.bug_check_background.pojo.vo.ConditionVo;
 import com.bug_check_background.service.BugService;
 import io.swagger.annotations.Api;
@@ -13,8 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @Slf4j

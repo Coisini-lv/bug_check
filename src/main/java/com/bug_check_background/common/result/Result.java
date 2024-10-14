@@ -1,4 +1,4 @@
-package com.bug_check_background.pojo.result;
+package com.bug_check_background.common.result;
 
 import lombok.Data;
 

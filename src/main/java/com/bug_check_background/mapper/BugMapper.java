@@ -25,4 +25,7 @@ public interface BugMapper extends BaseMapper<BugInfo> {
 
     @Select("select * from bug_check.num")
     Num selectNum();
+
+    @Select("select id from bug_check.buginfo")
+    List<Long> selectAllBugId();
 }

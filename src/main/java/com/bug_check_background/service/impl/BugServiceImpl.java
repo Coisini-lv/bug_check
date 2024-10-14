@@ -2,17 +2,17 @@ package com.bug_check_background.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bug_check_background.common.exception.CommonException;
 import com.bug_check_background.mapper.BugMapper;
 import com.bug_check_background.pojo.dto.BugDto;
 import com.bug_check_background.pojo.entity.BugInfo;
 import com.bug_check_background.pojo.entity.Num;
-import com.bug_check_background.pojo.result.PageResult;
+import com.bug_check_background.common.result.PageResult;
 import com.bug_check_background.pojo.vo.ConditionVo;
 import com.bug_check_background.service.BugService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -27,6 +27,10 @@ public class BugServiceImpl implements BugService {
         //按照id查询
         Long id = bugDto.getId();
         if (id != null) {
+            List<Long> allBugId= bugMapper.selectAllBugId();
+            if (!allBugId.contains(id)) {
+                throw new CommonException("id不存在");
+            }
             lambdaQueryWrapper.eq(BugInfo::getId, id);
         }
 

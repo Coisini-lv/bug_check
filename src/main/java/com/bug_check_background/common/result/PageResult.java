@@ -1,6 +1,5 @@
-package com.bug_check_background.pojo.result;
+package com.bug_check_background.common.result;
 
-import com.bug_check_background.pojo.entity.BugInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
