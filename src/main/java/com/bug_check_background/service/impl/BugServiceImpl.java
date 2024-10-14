@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bug_check_background.mapper.BugMapper;
 import com.bug_check_background.pojo.dto.BugDto;
 import com.bug_check_background.pojo.entity.BugInfo;
+import com.bug_check_background.pojo.entity.Num;
 import com.bug_check_background.pojo.result.PageResult;
+import com.bug_check_background.pojo.vo.ConditionVo;
 import com.bug_check_background.service.BugService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,70 +24,46 @@ public class BugServiceImpl implements BugService {
     public PageResult selectBug(BugDto bugDto) {
         LambdaQueryWrapper<BugInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 
-        //按照标题查询
-        String title = bugDto.getTitle();
-        if (title != null && !title.isEmpty()) {
-            lambdaQueryWrapper.like(BugInfo::getTitle, title);
+        //按照id查询
+        Long id = bugDto.getId();
+        if (id != null) {
+            lambdaQueryWrapper.eq(BugInfo::getId, id);
         }
 
-        //按照项目查询
-        String project = bugDto.getProject();
-        if (project != null && !project.isEmpty()) {
-            lambdaQueryWrapper.like(BugInfo::getProject, project);
+        //按照类型查询
+        List<String> typeList = bugDto.getTypeList();
+        if (typeList != null && typeList.size() > 0) {
+            lambdaQueryWrapper.in(BugInfo::getType, typeList);
         }
 
         //按照扫描工具查询
-        Integer scanner = bugDto.getScanner();
-        if (scanner != null) {
-            lambdaQueryWrapper.eq(BugInfo::getScanner, scanner);
+        List<Integer> scannerList = bugDto.getScannerList();
+        if (scannerList != null && scannerList.size() > 0) {
+            lambdaQueryWrapper.in(BugInfo::getScanner, scannerList);
         }
 
         //按照级别查询
-        Integer level = bugDto.getLevel();
-        if (level != null) {
-            lambdaQueryWrapper.eq(BugInfo::getLevel, level);
+        List<Integer> levelList = bugDto.getLevelList();
+        if (levelList != null && levelList.size() > 0) {
+            lambdaQueryWrapper.in(BugInfo::getLevel, levelList);
         }
 
-        String description = bugDto.getDescription();
-        LocalDate publishDate = bugDto.getPublishDate();
-        if (publishDate != null) {
-            lambdaQueryWrapper.eq(BugInfo::getPublishDate, publishDate);
+        //按照生态系统查询
+        List<String> ecosystemList = bugDto.getEcosystemList();
+        if (ecosystemList != null && ecosystemList.size() > 0) {
+            lambdaQueryWrapper.in(BugInfo::getEcosystem, ecosystemList);
         }
 
-
-        String cve = bugDto.getCve();
-        if (cve != null && !cve.isEmpty()) {
-            lambdaQueryWrapper.like(BugInfo::getCve, cve);
-        }
-
-        String type = bugDto.getType();
-        if (type != null && !type.isEmpty()) {
-            lambdaQueryWrapper.like(BugInfo::getType, type);
-        }
-
-        String ecosystem = bugDto.getEcosystem();
-        if (ecosystem != null && !ecosystem.isEmpty()) {
-            lambdaQueryWrapper.like(BugInfo::getEcosystem, ecosystem);
-        }
-
-        String cwe = bugDto.getCwe();
-        if (cwe != null && !cwe.isEmpty()) {
-            lambdaQueryWrapper.like(BugInfo::getCwe, cwe);
-        }
-
-        String cvss = bugDto.getCvss();
-        if (cvss != null && !cvss.isEmpty()) {
-            lambdaQueryWrapper.like(BugInfo::getCvss, cvss);
-        }
-
-        String credit = bugDto.getCredit();
-        if (credit != null && !credit.isEmpty()) {
-            lambdaQueryWrapper.like(BugInfo::getCredit, credit);
-        }
-
-        Double grade = bugDto.getGrade();
-        if (grade != null) {
-            lambdaQueryWrapper.eq(BugInfo::getGrade, grade);
+        //按照全局搜索查询
+        String globalParam = bugDto.getGlobalParam();
+        if (globalParam != null) {
+            lambdaQueryWrapper.like(BugInfo::getTitle, globalParam)
+                    .or().like(BugInfo::getProject, globalParam)
+                    .or().like(BugInfo::getCve, globalParam)
+                    .or().like(BugInfo::getType, globalParam)
+                    .or().like(BugInfo::getEcosystem, globalParam)
+                    .or().like(BugInfo::getCwe, globalParam)
+                    .or().like(BugInfo::getCredit, globalParam);
         }
 
         //MyBatis分页查询
@@ -99,5 +77,25 @@ public class BugServiceImpl implements BugService {
         long total = page.getTotal();
         List<BugInfo> records = page.getRecords();
         return new PageResult(total, records);
+    }
+
+    @Override
+    public ConditionVo selectCondition() {
+        List<String> typeList = bugMapper.selectType();
+        List<Integer> scannerList = bugMapper.selectScanner();
+        List<Integer> levelList = bugMapper.selectLevel();
+        List<String> ecosystemList = bugMapper.selectEcosystem();
+        return ConditionVo.builder()
+                .typeList(typeList)
+                .scannerList(scannerList)
+                .levelList(levelList)
+                .ecosystemList(ecosystemList)
+                .build();
+    }
+
+    @Override
+    public Num selectNum() {
+        Num num=bugMapper.selectNum();
+        return num;
     }
 }
