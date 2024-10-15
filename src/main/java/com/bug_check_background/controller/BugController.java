@@ -23,7 +23,7 @@ public class BugController {
     @Autowired
     BugService bugService;
 
-    @GetMapping("/selectBug")
+    @PostMapping("/selectBug")
     @ApiOperation(value = "查询bug信息")
     public Result<PageResult> selectBug(@Validated @RequestBody BugDto bugDto) {
         PageResult pageResult = bugService.selectBug(bugDto);
