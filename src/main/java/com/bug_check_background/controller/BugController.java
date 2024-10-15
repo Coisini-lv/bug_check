@@ -1,6 +1,7 @@
 package com.bug_check_background.controller;
 
 import com.bug_check_background.pojo.dto.BugDto;
+import com.bug_check_background.pojo.entity.BugInfo;
 import com.bug_check_background.pojo.entity.Num;
 import com.bug_check_background.common.result.PageResult;
 import com.bug_check_background.common.result.Result;
@@ -27,6 +28,12 @@ public class BugController {
     public Result<PageResult> selectBug(@Validated BugDto bugDto) {
         PageResult pageResult = bugService.selectBug(bugDto);
         return Result.success(pageResult);
+    }
+
+    @GetMapping("/selectBugDetail")
+    @ApiOperation(value = "查询bug详情")
+    public Result<BugInfo> selectBugDetail(@RequestParam("id") Long id) {
+        return Result.success(bugService.selectBugDetail(id));
     }
 
     @GetMapping("selectCondition")

@@ -20,9 +20,6 @@ public class BugDto {
     @NotNull(message = "每页数量不能为空")
     private Integer pageSize;
 
-    @ApiModelProperty(value = "id")
-    private Long id;
-
     @ApiModelProperty(value = "类型列表")
     private List<String> typeList;
 

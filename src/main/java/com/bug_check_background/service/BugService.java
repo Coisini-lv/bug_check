@@ -1,6 +1,7 @@
 package com.bug_check_background.service;
 
 import com.bug_check_background.pojo.dto.BugDto;
+import com.bug_check_background.pojo.entity.BugInfo;
 import com.bug_check_background.pojo.entity.Num;
 import com.bug_check_background.common.result.PageResult;
 import com.bug_check_background.pojo.vo.ConditionVo;
@@ -25,4 +26,11 @@ public interface BugService {
      * @return
      */
     Num selectNum();
+
+    /**
+     * 查询详情
+     * @param id
+     * @return
+     */
+    BugInfo selectBugDetail(Long id);
 }

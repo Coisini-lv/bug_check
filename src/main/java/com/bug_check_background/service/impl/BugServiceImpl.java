@@ -24,16 +24,6 @@ public class BugServiceImpl implements BugService {
     public PageResult selectBug(BugDto bugDto) {
         LambdaQueryWrapper<BugInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 
-        //按照id查询
-        Long id = bugDto.getId();
-        if (id != null) {
-            List<Long> allBugId= bugMapper.selectAllBugId();
-            if (!allBugId.contains(id)) {
-                throw new CommonException("id不存在");
-            }
-            lambdaQueryWrapper.eq(BugInfo::getId, id);
-        }
-
         //按照类型查询
         List<String> typeList = bugDto.getTypeList();
         if (typeList != null && typeList.size() > 0) {
@@ -99,7 +89,18 @@ public class BugServiceImpl implements BugService {
 
     @Override
     public Num selectNum() {
-        Num num=bugMapper.selectNum();
+        Num num = bugMapper.selectNum();
         return num;
+    }
+
+    @Override
+    public BugInfo selectBugDetail(Long id) {
+        LambdaQueryWrapper<BugInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        List<Long> allBugId = bugMapper.selectAllBugId();
+        if (!allBugId.contains(id)) {
+            throw new CommonException("id不存在");
+        }
+        lambdaQueryWrapper.eq(BugInfo::getId, id);
+        return bugMapper.selectOne(lambdaQueryWrapper);
     }
 }
