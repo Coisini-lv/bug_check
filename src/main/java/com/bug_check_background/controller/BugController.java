@@ -25,7 +25,7 @@ public class BugController {
 
     @GetMapping("/selectBug")
     @ApiOperation(value = "查询bug信息")
-    public Result<PageResult> selectBug(@Validated BugDto bugDto) {
+    public Result<PageResult> selectBug(@Validated @RequestBody BugDto bugDto) {
         PageResult pageResult = bugService.selectBug(bugDto);
         return Result.success(pageResult);
     }
