@@ -1,14 +1,18 @@
 package com.bug_check_background.pojo.vo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Validated
 public class ConditionVo {
 
