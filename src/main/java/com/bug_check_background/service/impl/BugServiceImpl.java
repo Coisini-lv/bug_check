@@ -26,37 +26,36 @@ public class BugServiceImpl implements BugService {
 
         //按照类型查询
         List<String> typeList = bugDto.getTypeList();
-        if (typeList != null && typeList.size() > 0) {
+        if (typeList != null && !typeList.isEmpty()) {
             lambdaQueryWrapper.in(BugInfo::getType, typeList);
         }
 
         //按照扫描工具查询
         List<Integer> scannerList = bugDto.getScannerList();
-        if (scannerList != null && scannerList.size() > 0) {
+        if (scannerList != null && !scannerList.isEmpty()) {
             lambdaQueryWrapper.in(BugInfo::getScanner, scannerList);
         }
 
         //按照级别查询
         List<Integer> levelList = bugDto.getLevelList();
-        if (levelList != null && levelList.size() > 0) {
+        if (levelList != null && !levelList.isEmpty()) {
             lambdaQueryWrapper.in(BugInfo::getLevel, levelList);
         }
 
         //按照生态系统查询
         List<String> ecosystemList = bugDto.getEcosystemList();
-        if (ecosystemList != null && ecosystemList.size() > 0) {
+        if (ecosystemList != null && !ecosystemList.isEmpty()) {
             lambdaQueryWrapper.in(BugInfo::getEcosystem, ecosystemList);
         }
 
         //按照全局搜索查询
         String globalParam = bugDto.getGlobalParam();
-        if (globalParam != null) {
+        if (globalParam != null&& !globalParam.isEmpty()) {
             lambdaQueryWrapper.like(BugInfo::getTitle, globalParam)
                     .or().like(BugInfo::getProject, globalParam)
                     .or().like(BugInfo::getCve, globalParam)
                     .or().like(BugInfo::getType, globalParam)
                     .or().like(BugInfo::getEcosystem, globalParam)
-                    .or().like(BugInfo::getCwe, globalParam)
                     .or().like(BugInfo::getCredit, globalParam);
         }
 
