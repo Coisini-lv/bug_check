@@ -77,6 +77,8 @@ public class BugServiceImpl implements BugService {
         List<String> typeList = bugMapper.selectType();
         List<Integer> scannerList = bugMapper.selectScanner();
         List<Integer> levelList = bugMapper.selectLevel();
+        //等级降序排序
+        levelList.sort((o1, o2) -> o2 - o1);
         List<String> ecosystemList = bugMapper.selectEcosystem();
         return ConditionVo.builder()
                 .typeList(typeList)
