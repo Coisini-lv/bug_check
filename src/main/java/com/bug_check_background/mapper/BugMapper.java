@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface BugMapper extends BaseMapper<BugInfo> {
 
-    @Select("select distinct type from bug_check.buginfo")
+    @Select("select distinct type_name from bug_check.bugtype")
     List<String> selectType();
 
     @Select("select distinct scanner from bug_check.buginfo")

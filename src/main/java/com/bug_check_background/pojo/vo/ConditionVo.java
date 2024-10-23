@@ -25,6 +25,6 @@ public class ConditionVo {
     @ApiModelProperty(value = "级别列表")
     private List<Integer> levelList;
 
-    @ApiModelProperty(value = "生态系统列表")
-    private List<String> ecosystemList;
+//    @ApiModelProperty(value = "生态系统列表")
+//    private List<String> ecosystemList;
 }
