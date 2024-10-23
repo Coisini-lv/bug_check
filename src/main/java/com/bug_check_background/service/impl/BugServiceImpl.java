@@ -25,33 +25,33 @@ public class BugServiceImpl implements BugService {
     public PageResult selectBug(BugDto bugDto) {
         LambdaQueryWrapper<BugInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 
-        //按照类型查询
+        // 按照类型查询
         List<String> typeList = bugDto.getTypeList();
         if (typeList != null && !typeList.isEmpty()) {
             lambdaQueryWrapper.in(BugInfo::getType, typeList);
         }
 
-        //按照扫描工具查询
+        // 按照扫描工具查询
         List<Integer> scannerList = bugDto.getScannerList();
         if (scannerList != null && !scannerList.isEmpty()) {
             lambdaQueryWrapper.in(BugInfo::getScanner, scannerList);
         }
 
-        //按照级别查询
+        // 按照级别查询
         List<Integer> levelList = bugDto.getLevelList();
         if (levelList != null && !levelList.isEmpty()) {
             lambdaQueryWrapper.in(BugInfo::getLevel, levelList);
         }
 
-        //按照生态系统查询
+        // 按照生态系统查询
         List<String> ecosystemList = bugDto.getEcosystemList();
         if (ecosystemList != null && !ecosystemList.isEmpty()) {
             lambdaQueryWrapper.in(BugInfo::getEcosystem, ecosystemList);
         }
 
-        //按照全局搜索查询
+        // 按照全局搜索查询
         String globalParam = bugDto.getGlobalParam();
-        if (globalParam != null&& !globalParam.isEmpty()) {
+        if (globalParam != null && !globalParam.isEmpty()) {
             lambdaQueryWrapper.like(BugInfo::getTitle, globalParam)
                     .or().like(BugInfo::getProject, globalParam)
                     .or().like(BugInfo::getCve, globalParam)
@@ -60,18 +60,25 @@ public class BugServiceImpl implements BugService {
                     .or().like(BugInfo::getCredit, globalParam);
         }
 
-        //MyBatis分页查询
+        // MyBatis分页查询
         Integer pageNum = bugDto.getPageNum();
         Integer pageSize = bugDto.getPageSize();
-        //创建分页对象
+        // 创建分页对象
         Page<BugInfo> page = new Page<>(pageNum, pageSize);
-        //按照id降序排序
+        // 按照id降序排序
         lambdaQueryWrapper.orderByDesc(BugInfo::getId);
+
+        // 执行查询
         bugMapper.selectPage(page, lambdaQueryWrapper);
+
+        // 获取总记录数和结果集
         long total = page.getTotal();
         List<BugInfo> records = page.getRecords();
+
+        // 返回分页结果
         return new PageResult(total, records);
     }
+
 
     @Override
     public ConditionVo selectCondition() {

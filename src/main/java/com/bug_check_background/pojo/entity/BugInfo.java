@@ -51,6 +51,10 @@ public class BugInfo {
     @TableField(value = "type")
     private String type;
 
+    @ApiModelProperty(value = "特性")
+    @TableField(value = "characters")
+    private String characters;
+
     @ApiModelProperty(value = "生态系统")
     @TableField(value = "ecosystem")
     private String ecosystem;
@@ -70,6 +74,10 @@ public class BugInfo {
     @ApiModelProperty(value = "评分")
     @TableField(value = "grade")
     private Double grade;
+
+    @ApiModelProperty(value = "扫描链接")
+    @TableField(value = "scanner_link")
+    private LocalDateTime scannerLink;
 
     @ApiModelProperty(value = "描述")
     @TableField(value = "description")
