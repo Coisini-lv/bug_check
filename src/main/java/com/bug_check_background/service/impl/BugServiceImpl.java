@@ -13,6 +13,7 @@ import com.bug_check_background.service.BugService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -75,16 +76,22 @@ public class BugServiceImpl implements BugService {
     @Override
     public ConditionVo selectCondition() {
         List<String> typeList = bugMapper.selectType();
-        List<Integer> scannerList = bugMapper.selectScanner();
-        List<Integer> levelList = bugMapper.selectLevel();
+        List<Integer> scannerList = new ArrayList<>();
+        scannerList.add(0);
+        scannerList.add(1);
+        scannerList.sort((o1, o2) -> o2 - o1);
+        List<Integer> levelList = new ArrayList<>();
+        for (int i = 1; i < 6; i++) {
+            levelList.add(i);
+        }
         //等级降序排序
         levelList.sort((o1, o2) -> o2 - o1);
-        List<String> ecosystemList = bugMapper.selectEcosystem();
+//        List<String> ecosystemList = bugMapper.selectEcosystem();
         return ConditionVo.builder()
                 .typeList(typeList)
                 .scannerList(scannerList)
                 .levelList(levelList)
-                .ecosystemList(ecosystemList)
+//                .ecosystemList(ecosystemList)
                 .build();
     }
 
