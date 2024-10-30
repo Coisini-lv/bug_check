@@ -69,11 +69,11 @@ public class BugServiceImpl implements BugService {
         lambdaQueryWrapper.orderByDesc(BugInfo::getId);
 
         // 执行查询
-        bugMapper.selectPage(page, lambdaQueryWrapper);
+        Page<BugInfo> result =bugMapper.selectPage(page, lambdaQueryWrapper);
 
         // 获取总记录数和结果集
-        long total = page.getTotal();
-        List<BugInfo> records = page.getRecords();
+        long total = result.getTotal();
+        List<BugInfo> records = result.getRecords();
 
         // 返回分页结果
         return new PageResult(total, records);

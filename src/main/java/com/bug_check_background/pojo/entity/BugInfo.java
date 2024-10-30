@@ -77,7 +77,7 @@ public class BugInfo {
 
     @ApiModelProperty(value = "扫描链接")
     @TableField(value = "scanner_link")
-    private LocalDateTime scannerLink;
+    private String scannerLink;
 
     @ApiModelProperty(value = "描述")
     @TableField(value = "description")
