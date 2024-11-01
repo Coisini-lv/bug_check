@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         }
         StpUtil.login(user.getId());
         String token = StpUtil.getTokenValue();
-        LoginVo loginVo = LoginVo.builder().id(user.getId()).account(account).token(token).build();
+        LoginVo loginVo = LoginVo.builder().id(user.getId()).account(account).token(token).username(user.getUsername()).build();
         return loginVo;
     }
 

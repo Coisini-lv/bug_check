@@ -101,7 +101,7 @@ public class BugInfo {
 
     @ApiModelProperty(value = "技术报告")
     @TableField(value = "tech_report")
-    private String techReport;
+    private Integer techReport;
 
     @ApiModelProperty(value = "修复步骤")
     @TableField(value = "repair_procedure")

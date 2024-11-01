@@ -5,11 +5,11 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/bug_check
     username: root
-    password: woxihuanni1314
+    password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     host: localhost
-    port: 3306
+    port: 6379
 #    password:
 #    database: ${bugCheck.redis.database}
   mvc:

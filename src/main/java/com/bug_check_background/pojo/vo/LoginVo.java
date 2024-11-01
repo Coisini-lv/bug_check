@@ -21,4 +21,7 @@ public class LoginVo {
 
     @ApiModelProperty(value = "token")
     private String token;
+
+    @ApiModelProperty(value = "username")
+    private String username;
 }
