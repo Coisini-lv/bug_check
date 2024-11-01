@@ -8,7 +8,7 @@ import com.bug_check_background.pojo.vo.RegisterVo;
 
 public interface UserService {
 
-    Result<LoginVo> login(LoginDto loginDto);
+    LoginVo login(LoginDto loginDto);
 
-    Result<RegisterVo> register(RegisterDto loginDto);
+    RegisterVo register(RegisterDto loginDto);
 }

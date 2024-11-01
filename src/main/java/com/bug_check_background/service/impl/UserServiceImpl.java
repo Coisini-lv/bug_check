@@ -1,6 +1,7 @@
 package com.bug_check_background.service.impl;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
+import cn.dev33.satoken.stp.StpUtil;
 import com.bug_check_background.common.exception.CommonException;
 import com.bug_check_background.common.result.Result;
 import com.bug_check_background.mapper.UserMapper;
@@ -27,14 +28,29 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    private static final String key = "zhian";
 
     @Override
-    public Result<LoginVo> login(LoginDto loginDto) {
-        return null;
+    public LoginVo login(LoginDto loginDto) {
+        String account = loginDto.getAccount();
+        List<String> allAccount = userMapper.selectAllAccount();
+        if (!allAccount.contains(account)) {
+            throw new CommonException("登录失败，账号或密码错误");
+        }
+        String password = loginDto.getPassword();
+        String twicePassword = SaSecureUtil.aesEncrypt(key, password);
+        User user = userMapper.selectByAccount(account);
+        if (!user.getPassword().equals(twicePassword)) {
+            throw new CommonException("登录失败，账号或密码错误");
+        }
+        StpUtil.login(user.getId());
+        String token = StpUtil.getTokenValue();
+        LoginVo loginVo = LoginVo.builder().id(user.getId()).account(account).token(token).build();
+        return loginVo;
     }
 
     @Override
-    public Result<RegisterVo> register(RegisterDto loginDto) {
+    public RegisterVo register(RegisterDto loginDto) {
         String username = loginDto.getUsername();
         String account = loginDto.getAccount();
         List<String> allAccount = userMapper.selectAllAccount();
@@ -44,16 +60,16 @@ public class UserServiceImpl implements UserService {
         String encryptedText = loginDto.getPassword(); // 这里填入前端加密后的文本
         String secretKey = "!QA2Z@w1sxO*(-8L";
         String iv = "!WFNZFU_{H%M(S|a";
-        String realPassword = null;
-        try {
-            realPassword = decrypt(encryptedText, secretKey, iv);
-        } catch (Exception e) {
-            throw new CommonException("密码解密失败");
-        }
+        String realPassword = loginDto.getPassword();
+//        String realPassword = null;
+//        try {
+//            realPassword = decrypt(encryptedText, secretKey, iv);
+//        } catch (Exception e) {
+//            throw new CommonException("密码解密失败");
+//        }
         if (!isValidPassword(realPassword)) {
             throw new CommonException("密码不符合要求");
         }
-        String key = "zhian";
         String twicePassword = SaSecureUtil.aesEncrypt(key, realPassword);
         User user = User.builder().username(username).account(account).password(twicePassword).email(loginDto.getEmail()).build();
         userMapper.insert(user);

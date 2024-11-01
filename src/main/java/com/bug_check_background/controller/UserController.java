@@ -29,14 +29,13 @@ public class UserController {
     @PostMapping("/login")
     @ApiOperation(value = "用户登录")
     public Result<LoginVo> login(@Validated @RequestBody LoginDto loginDto) {
-        return userService.login(loginDto);
+        return Result.success(userService.login(loginDto));
     }
 
     @PostMapping("/register")
     @ApiOperation(value = "用户注册")
     public Result<RegisterVo> register(@Validated @RequestBody RegisterDto loginDto) {
-        return userService.register(loginDto);
+        return Result.success(userService.register(loginDto));
     }
-
 
 }
